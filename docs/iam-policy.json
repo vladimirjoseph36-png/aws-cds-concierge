@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ConciergeMessaging",
+      "Effect": "Allow",
+      "Action": [
+        "sms-voice:SendTextMessage",
+        "sms-voice:SendRcsMessage",
+        "social-messaging:SendWhatsAppMessage",
+        "ses:SendEmail",
+        "comprehend:DetectDominantLanguage",
+        "bedrock-agentcore:InvokeAgentRuntime"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

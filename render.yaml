@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: aws-cds-concierge
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DEMO_MODE            # "true" = simulated patients, no AWS calls
+        value: "true"
+      - key: AWS_REGION
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: EUM_SMS_ORIGINATION_ID
+        sync: false
+      - key: EUM_RCS_AGENT_ID
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: SES_FROM_ADDRESS
+        sync: false
+      - key: AGENTCORE_RUNTIME_ARN
+        sync: false
+      - key: SNS_TOPIC_ARN
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true

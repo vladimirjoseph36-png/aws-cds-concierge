@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omnichannel Concierge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020a12;--bg2:#043044;--panel:rgba(2,22,34,.82);--line:rgba(0,240,255,.38);--tx:#eafcff;--mu:#8fc3d1;--sms:#00f0ff;--rcs:#38c8ff;--wa:#8ffaff;--mail:#00c7b8;--pk:#8ffaff;--glow:rgba(0,240,255,.2);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light) and (max-width:0px){:root:not([data-theme="dark"]){--bg:#eef2fb;--bg2:#dfe7fa;--panel:rgba(255,255,255,.75);--line:rgba(40,70,160,.18);--tx:#111a3a;--mu:#55618a;--sms:#0b86b0;--rcs:#5b49d6;--wa:#118a56;--mail:#b56a00;--glow:rgba(11,134,176,.14);color-scheme:light}}
+:root[data-theme="light"]{--bg:#eef2fb;--bg2:#dfe7fa;--panel:rgba(255,255,255,.75);--line:rgba(40,70,160,.18);--tx:#111a3a;--mu:#55618a;--sms:#0b86b0;--rcs:#5b49d6;--wa:#118a56;--mail:#b56a00;--glow:rgba(11,134,176,.14);color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:linear-gradient(rgba(0,229,255,.022) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(0,229,255,.022) 1px,transparent 1px) 0 0/48px 48px,radial-gradient(1200px 600px at 70% -10%,var(--bg2),var(--bg));background-color:var(--bg);color:var(--tx);font:500 16px/1.45 Rajdhani,system-ui,sans-serif;min-height:100vh}
+h1,h2,.num{font-family:Orbitron,"Chakra Petch",system-ui,sans-serif;margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding:20px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between;margin-bottom:18px}
+h1{font-size:clamp(28px,4vw,46px);font-weight:700;letter-spacing:.02em;text-shadow:0 0 26px rgba(0,229,255,.6)}
+.sub{color:var(--mu);margin:4px 0 0;max-width:60ch}
+.live{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mu);border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--panel)}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--wa);box-shadow:0 0 10px var(--wa);animation:p 1.8s infinite}
+@keyframes p{50%{opacity:.35}}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:14px}
+.kpi{border:1px solid var(--line);border-bottom:3px solid var(--pk);background:var(--panel);padding:12px 16px;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+.kpi .num{font-size:24px;font-weight:800;color:var(--sms);text-shadow:2px 0 var(--pk),0 0 16px rgba(0,240,255,.7)}.kpi span{color:var(--mu);font-size:13px}
+.grid{display:grid;grid-template-columns:260px minmax(0,1fr) 300px;gap:14px}
+@media(max-width:1020px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-left:3px solid var(--sms);background:linear-gradient(to top right,transparent calc(50% - 1px),var(--sms) calc(50% - 1px),var(--sms) calc(50% + 1px),transparent calc(50% + 1px)) top right/18px 18px no-repeat,linear-gradient(to top right,transparent calc(50% - 1px),var(--pk) calc(50% - 1px),var(--pk) calc(50% + 1px),transparent calc(50% + 1px)) bottom left/18px 18px no-repeat,var(--panel);padding:16px;min-width:0;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+h2{font-size:16px;font-weight:600;margin-bottom:12px}
+.conv{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:transparent;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.conv:hover{border-color:var(--sms)}
+.conv[aria-pressed="true"]{border-color:var(--sms);background:var(--glow);box-shadow:0 0 22px var(--glow)}
+.conv b{display:block;font-weight:600}.conv small{color:var(--mu)}
+.conv:focus-visible,button:focus-visible{outline:2px solid var(--sms);outline-offset:2px}
+svg{width:100%;height:auto;display:block}
+.ln{stroke:var(--line);stroke-width:1.5;fill:none}
+.ln.on{stroke-width:2.5;filter:drop-shadow(0 0 5px currentColor)}
+.nd rect{fill:var(--bg2);stroke:var(--line);stroke-width:1.5;transition:.3s}
+.nd text{fill:var(--tx);font:600 14px "Chakra Petch",sans-serif;text-anchor:middle}
+.nd.on rect{stroke:currentColor;filter:drop-shadow(0 0 10px currentColor)}
+.core circle{fill:var(--bg2);stroke:var(--sms);stroke-width:2}
+.core text{fill:var(--tx);font:700 13px "Chakra Petch",sans-serif;text-anchor:middle}
+#dot{transition:transform .9s cubic-bezier(.5,0,.2,1);transform:translate(300px,55px)}
+.thread{margin-top:10px;display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto}
+.msg{max-width:86%;border-radius:14px;padding:8px 12px;border:1px solid var(--line);animation:in .35s}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.msg.out{align-self:flex-start;background:var(--glow)}.msg.in{align-self:flex-end}
+.msg em{display:block;font-style:normal;font-size:12px;font-weight:600;margin-bottom:2px}
+.trace{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.trace li{border-left:2px solid var(--sms);padding:2px 0 2px 12px;animation:in .35s}
+.trace code{font:600 13px "Chakra Petch",monospace;color:var(--sms)}
+.trace p{margin:2px 0 0;color:var(--mu);font-size:13px}
+.ctl{display:flex;gap:8px;margin-top:12px}
+button.b{font:600 14px Figtree,sans-serif;color:var(--tx);background:var(--glow);border:1px solid var(--sms);border-radius:10px;padding:8px 14px;cursor:pointer}
+.note{color:var(--mu);font-size:12.5px;margin-top:14px}
+.core .ring{fill:none;stroke:var(--sms);stroke-width:1.5;transform-origin:300px 55px;animation:rg 3s ease-out infinite}
+@keyframes rg{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(1.6)}}
+.core circle:not(.ring){filter:drop-shadow(0 0 12px var(--sms))}
+.conv,button.b{border-radius:4px}.msg{border-radius:6px}
+.charts{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:14px}
+@media(max-width:1020px){.charts{grid-template-columns:1fr}}
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--mu);margin-bottom:6px}
+.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;box-shadow:0 0 8px currentColor}
+.ax{fill:var(--mu);font:11px Figtree,sans-serif}.gl{stroke:var(--line);stroke-width:1;opacity:.6}
+.sr{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px currentColor)}
+.dr{stroke-dasharray:1;stroke-dashoffset:1;animation:dw 1.8s ease-out forwards}
+@keyframes dw{to{stroke-dashoffset:0}}
+.dn{fill:none;stroke-width:16;transition:stroke-dasharray 1.3s cubic-bezier(.3,0,.2,1)}
+#don{max-width:230px;margin:0 auto}
+.fr{margin-bottom:14px}.fr .t{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.fr b{font-family:'Chakra Petch',sans-serif;color:var(--sms)}
+.bar{height:10px;border-radius:3px;background:rgba(0,229,255,.1)}
+.bar i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,rgba(0,229,255,.35),var(--sms));box-shadow:0 0 12px var(--glow);transition:width 1.3s cubic-bezier(.3,0,.2,1)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(700px 420px at 0% 0%,rgba(0,240,255,.2),transparent),radial-gradient(800px 500px at 100% 100%,rgba(0,240,255,.16),transparent)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 3px)}
+.wrap{position:relative;z-index:1}
+h1{font-family:Orbitron,sans-serif;font-weight:800;font-size:clamp(24px,4vw,42px);text-transform:uppercase;animation:gl 6s infinite}
+@keyframes gl{0%,92%,100%{transform:none;text-shadow:2px 0 var(--pk),-2px 0 var(--sms),0 0 26px rgba(0,240,255,.5)}94%{transform:translate(-3px,1px) skewX(-6deg);text-shadow:-5px 0 var(--pk),5px 0 var(--sms)}96%{transform:translate(3px,-1px) skewX(5deg);text-shadow:5px 0 var(--pk),-5px 0 var(--sms)}}
+h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sms)}
+h2::before{content:'//';color:var(--pk);margin-right:8px}
+.sub,.conv small,.kpi span,.lg,.note,.ax{font-family:'Share Tech Mono',monospace}
+.sub{font-size:13px}
+.live{border-radius:0;border-color:var(--pk);color:var(--tx);font-family:'Share Tech Mono',monospace;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.live i{background:var(--pk);box-shadow:0 0 12px var(--pk)}
+.conv{border-radius:0;border-left:3px solid var(--line)}
+.conv[aria-pressed='true']{border-left-color:var(--pk);box-shadow:0 0 22px rgba(0,240,255,.3)}
+.msg{border-radius:0;border-left:2px solid var(--sms)}
+.msg.in{border-left:1px solid var(--line);border-right:2px solid var(--pk);background:rgba(0,240,255,.1)}
+.trace code{font-family:'Share Tech Mono',monospace}
+.trace code::before{content:'> ';color:var(--pk)}
+.nd rect{rx:3px}
+button.b{border-radius:0;border-color:var(--pk);background:rgba(0,240,255,.14);font-family:Orbitron,sans-serif;font-size:12px;letter-spacing:.12em;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+button.b:hover{background:var(--pk);color:#020a12}
+.bar{border-radius:0}.bar i{border-radius:0;background:linear-gradient(90deg,var(--sms),var(--pk));box-shadow:0 0 14px rgba(0,240,255,.5)}
+.kpi:nth-child(even){border-bottom-color:var(--sms)}
+@media(prefers-reduced-motion:reduce){.dr{stroke-dashoffset:0}.dn,.bar i{transition:none}*{animation:none!important;transition:none!important}}
+.hr{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select{font:inherit;color:var(--tx);background:var(--panel);border:1px solid var(--line);padding:6px 10px;border-radius:0}
+.empty{color:var(--mu);font-family:'Share Tech Mono',monospace;font-size:13px}
+#list{max-height:360px;overflow-y:auto}
+[hidden]{display:none!important}
+/* softer neon: translucent grid, gridlines and bars */
+.gl{opacity:.2}
+.sr{stroke-width:2;filter:drop-shadow(0 0 2px currentColor)}
+.bar{background:rgba(0,240,255,.05)}
+.bar i{background:linear-gradient(90deg,rgba(0,240,255,.1),rgba(0,240,255,.4));box-shadow:0 0 8px rgba(0,240,255,.15);border-right:1px solid rgba(143,250,255,.65)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div><h1 data-i18n="title">Omnichannel Concierge</h1><p class="sub" data-i18n="sub"></p></div>
+<div class="hr"><select id="lang"></select><div class="live"><i></i><span id="mode"></span></div></div>
+</header>
+<div class="kpis">
+<div class="kpi"><div class="num" id="k1">0</div><span data-i18n="kpiMsgs"></span></div>
+<div class="kpi"><div class="num" id="k2">0 %</div><span data-i18n="kpiReply"></span></div>
+<div class="kpi"><div class="num" id="k3">0 %</div><span data-i18n="kpiDone"></span></div>
+<div class="kpi"><div class="num" id="k4">0</div><span data-i18n="kpiChannels"></span></div>
+</div>
+<div class="grid">
+<section class="card"><h2 data-i18n="convs"></h2><div id="list"></div></section>
+<section class="card">
+<h2 data-i18n="flow"></h2>
+<svg viewBox="0 0 600 230" role="img" aria-label="Agent and channels">
+<g id="lines"></g>
+<g class="core"><circle class="ring" cx="300" cy="55" r="34"/><circle cx="300" cy="55" r="34"/><text x="300" y="52">Agent</text><text x="300" y="68" style="font-weight:500;font-size:11px;fill:var(--mu)">AgentCore</text></g>
+<g id="nodes"></g>
+<circle id="dot" r="6" opacity="0"/>
+</svg>
+<div class="thread" id="thread" aria-live="polite"></div>
+<div class="ctl"><button class="b" id="run" data-i18n="run"></button></div>
+</section>
+<section class="card"><h2 data-i18n="trace"></h2><ol class="trace" id="trace"></ol></section>
+</div>
+<div class="charts">
+<section class="card"><h2 data-i18n="vol"></h2><div class="lg" id="lg"></div><svg id="vol" viewBox="0 0 640 220" role="img"></svg></section>
+<section class="card"><h2 data-i18n="split"></h2><svg id="don" viewBox="0 0 200 200" role="img"></svg><div class="lg" id="lg2" style="margin-top:8px"></div></section>
+<section class="card"><h2 data-i18n="journey"></h2><div id="fun"></div></section>
+</div>
+<p class="note" id="note"></p>
+</div>
+<script src="/i18n.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

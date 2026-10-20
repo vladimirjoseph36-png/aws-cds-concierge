@@ -1,0 +1,23 @@
+{
+  "name": "aws-cds-concierge",
+  "version": "1.0.0",
+  "description": "Agentic omnichannel concierge built on AWS Communication Developer Services (SMS, RCS, WhatsApp, SES) and Amazon Bedrock AgentCore",
+  "type": "module",
+  "main": "server.js",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agentcore": "^3.0.0",
+    "@aws-sdk/client-comprehend": "^3.0.0",
+    "@aws-sdk/client-pinpoint-sms-voice-v2": "^3.0.0",
+    "@aws-sdk/client-sesv2": "^3.0.0",
+    "@aws-sdk/client-socialmessaging": "^3.0.0",
+    "express": "^4.21.0",
+    "sns-validator": "^0.3.5"
+  }
+}
