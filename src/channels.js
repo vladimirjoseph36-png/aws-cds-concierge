@@ -83,13 +83,21 @@ export async function send({ channel, to, text, card, subject }) {
       message: Buffer.from(JSON.stringify(whatsappPayload(to, text, card))),
     }));
   }
-  if (channel === 'mail') {
+  
+  if (channel === 'mail' || channel === 'email') {
     const { m, c } = await client('mail');
-    return c.send(new m.SendEmailCommand({
-      FromEmailAddress: config.ses.from,
-      Destination: { ToAddresses: [to] },
-      Content: { Simple: { Subject: { Data: subject || 'Message', Charset: 'UTF-8' }, Body: { Text: { Data: text, Charset: 'UTF-8' } } } },
-    }));
+    try {
+      return await c.send(new m.SendEmailCommand({
+        FromEmailAddress: config.ses.from,
+        FromEmailAddressIdentityArn: 'arn:aws:ses:us-east-1:293951765173:identity/vladimirjoseph36@gmail.com',
+        Destination: { ToAddresses: [to] },
+        Content: { Simple: { Subject: { Data: subject || 'Message', Charset: 'UTF-8' }, Body: { Text: { Data: text, Charset: 'UTF-8' } } } },
+      }));
+    } catch (err) {
+      console.error("=== ERREUR AWS DÉTAILLÉE ===");
+      console.error(err);
+      throw err;
+    }
   }
   throw new Error(`Unknown channel: ${channel}`);
 }

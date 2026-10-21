@@ -8,20 +8,7 @@ An agentic customer-engagement app built on **AWS Communication Developer Servic
 
 ## Architecture
 
-```mermaid
-flowchart LR
-  P[Patient] <--> SMS[EUM SMS]
-  P <--> RCS[EUM RCS]
-  P <--> WA[EUM Social - WhatsApp]
-  P <--> SES[Amazon SES]
-  SMS & RCS & WA -- inbound events --> SNS[Amazon SNS]
-  SNS -- HTTPS, signature verified --> APP[Concierge app on Render]
-  APP -- outbound --> SMS & RCS & WA & SES
-  APP <--> AC[Bedrock AgentCore runtime]
-  APP -- language --> CMP[Amazon Comprehend]
-  APP -- SSE + REST --> UI[Live dashboard]
-```
-
+![Architecture du projet](docs/architecture.png)
 | Path | Purpose |
 |---|---|
 | `server.js` | Express app: dashboard, SSE stream, SNS webhook, admin API |
